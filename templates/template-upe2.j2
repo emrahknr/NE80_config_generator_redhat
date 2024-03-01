@@ -1482,10 +1482,13 @@ info-center loghost source LoopBack7
 info-center loghost 10.222.246.12  vpn-instance TAN-MGMT-ACCESS
 info-center loghost 10.222.246.13  vpn-instance TAN-MGMT-ACCESS
 info-center loghost 10.222.247.248  vpn-instance TAN-MGMT-ACCESS
+info-center syslog packet-priority 3
 info-center timestamp log format-date precision-time millisecond
 #
 set memory-usage threshold 75 restore 72 slot 15
 set memory-usage threshold 75 restore 72 slot 16
+#
+host-packet type management-protocol dscp 26
 #
 router id {{LOOPBACK0_IP_ADDRESS}}
 #
@@ -2266,6 +2269,7 @@ acl number 2024
  description fullmesh-monitoring-twamp-probs
  rule 5 permit vpn-instance fullmesh-monitoring source 10.40.156.0 0.0.3.255
  rule 10 permit vpn-instance fullmesh-monitoring source 10.40.160.0 0.0.3.255
+ rule 15 permit vpn-instance fullmesh-monitoring source 10.40.172.0 0.0.3.255
 #
 nqa twamp
  server
