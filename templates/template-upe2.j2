@@ -2424,11 +2424,13 @@ bgp 34984
   peer {{IPV4_UNICAST_RR_01_IP_ADDRESS}} route-policy ibgp-export-to-rr export
   peer {{IPV4_UNICAST_RR_01_IP_ADDRESS}} next-hop-local
   peer {{IPV4_UNICAST_RR_01_IP_ADDRESS}} advertise-community
+  peer {{IPV4_UNICAST_RR_01_IP_ADDRESS}} route-limit 1375000 85 alert-only
   peer {{IPV4_UNICAST_RR_02_IP_ADDRESS}} enable
   peer {{IPV4_UNICAST_RR_02_IP_ADDRESS}} route-policy ibgp-import-from-rr import
   peer {{IPV4_UNICAST_RR_02_IP_ADDRESS}} route-policy ibgp-export-to-rr export
   peer {{IPV4_UNICAST_RR_02_IP_ADDRESS}} next-hop-local
   peer {{IPV4_UNICAST_RR_02_IP_ADDRESS}} advertise-community
+  peer {{IPV4_UNICAST_RR_02_IP_ADDRESS}} route-limit 1375000 85 alert-only
   peer POP-ring enable
   peer POP-ring advertise-community
   peer POP-ring reflect-client
@@ -2441,6 +2443,7 @@ bgp 34984
   peer 10.61.0.111 label-route-capability
   peer 10.61.0.111 advertise-community
   peer 10.61.0.111 advertise-ext-community
+  peer 10.61.0.111 route-limit 50000 85 alert-only
   peer 10.61.0.112 enable
   peer 10.61.0.112 route-policy ibgp-import-from-labeled-rr import
   peer 10.61.0.112 route-policy ibgp-export-to-labeled-rr export
@@ -2448,13 +2451,16 @@ bgp 34984
   peer 10.61.0.112 label-route-capability
   peer 10.61.0.112 advertise-community
   peer 10.61.0.112 advertise-ext-community
+  peer 10.61.0.112 route-limit 50000 85 alert-only
  #
  ipv4-family vpnv4
   policy vpn-target
   peer 10.61.0.111 enable
   peer 10.61.0.111 advertise-community
+  peer 10.61.0.111 route-limit 600000 85 alert-only
   peer 10.61.0.112 enable
   peer 10.61.0.112 advertise-community
+  peer 10.61.0.112 route-limit 600000 85 alert-only
  #
  ipv6-family unicast
   apply-label explicit-null
@@ -2472,6 +2478,7 @@ bgp 34984
   peer {{IPV4_UNICAST_RR_01_IP_ADDRESS}} label-route-capability
   peer {{IPV4_UNICAST_RR_01_IP_ADDRESS}} advertise-community
   peer {{IPV4_UNICAST_RR_01_IP_ADDRESS}} advertise-ext-community
+  peer {{IPV4_UNICAST_RR_01_IP_ADDRESS}} route-limit 500000 85 alert-only
   peer {{IPV4_UNICAST_RR_02_IP_ADDRESS}} enable
   peer {{IPV4_UNICAST_RR_02_IP_ADDRESS}} route-policy ipv6-ibgp-import-from-inet-rr import
   peer {{IPV4_UNICAST_RR_02_IP_ADDRESS}} route-policy ipv6-ibgp-export-to-inet-rr export
@@ -2479,13 +2486,16 @@ bgp 34984
   peer {{IPV4_UNICAST_RR_02_IP_ADDRESS}} label-route-capability
   peer {{IPV4_UNICAST_RR_02_IP_ADDRESS}} advertise-community
   peer {{IPV4_UNICAST_RR_02_IP_ADDRESS}} advertise-ext-community
+  peer {{IPV4_UNICAST_RR_02_IP_ADDRESS}} route-limit 500000 85 alert-only
  #
  ipv6-family vpnv6
   policy vpn-target
   peer 10.61.0.111 enable
   peer 10.61.0.111 advertise-community
+  peer 10.61.0.111 route-limit 500000 85 alert-only
   peer 10.61.0.112 enable
   peer 10.61.0.112 advertise-community
+  peer 10.61.0.112 route-limit 500000 85 alert-only
  #
  ipv4-family vpn-instance TAN-MGMT-ACCESS
   preference 200 200 255
