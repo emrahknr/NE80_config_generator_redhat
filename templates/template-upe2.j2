@@ -1526,8 +1526,10 @@ set flow-stat interval 30
 #
 set save-configuration interval 180
 #
-telnet server enable
-telnet server-source -i LoopBack0
+undo telnet server enable
+undo telnet ipv6 server enable
+undo telnet server-source all-interface
+undo telnet ipv6 server-source all-interface
 #
 undo dcn
 #
@@ -2773,22 +2775,22 @@ user-interface maximum-vty 21
 #
 user-interface con 0
  authentication-mode password
- set authentication password tellcom123
+ set authentication password cipher tellcom123
  history-command max-size 256
  idle-timeout 5 0
 #
 user-interface vty 0 14
- authentication-mode password
+ acl 3001 inbound
+ authentication-mode aaa
  user privilege level 15
- set authentication password cipher tellcom123
  history-command max-size 256
  idle-timeout 5 0
  protocol inbound all
 #
 user-interface vty 16 20
- authentication-mode password
+ acl 3001 inbound
+ authentication-mode aaa
  user privilege level 15
- set authentication password cipher tellcom123
  history-command max-size 256
  idle-timeout 5 0
  protocol inbound all
