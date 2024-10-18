@@ -1253,6 +1253,16 @@ ip vpn-instance 2G3G-DATA-ACCESS
   vpn-target 34984:3896 export-extcommunity
   vpn-target 34984:3897 import-extcommunity
 #
+ip vpn-instance TURKCELL_FIBER_SITE_{{FIBERSITE_MGMT_BOLGE}}_MGMT
+ ipv4-family
+  route-distinguisher {{LOOPBACK0_IP_ADDRESS}}:{{FIBERSITE_MGMT_RT}}
+  import route-policy management-888-import
+  tnl-policy lsp-lb
+  apply-label per-route
+  prefix limit 10000 80
+  vpn-target 34984:{{FIBERSITE_MGMT_RT}} export-extcommunity
+  vpn-target 34984:{{FIBERSITE_MGMT_RT}} import-extcommunity
+#
 ip vpn-instance FTTB-GPON-MGMT-ACCESS
  ipv4-family
   route-distinguisher {{LOOPBACK0_IP_ADDRESS}}:15076
@@ -2545,6 +2555,11 @@ ipv4-family vpn-instance solmonitoring
   import-route direct
  #
 ipv4-family vpn-instance 2G3G-DATA-ACCESS
+  preference 200 200 255
+  import-route direct
+  import-route static
+#
+ipv4-family vpn-instance TURKCELL_FIBER_SITE_{{FIBERSITE_MGMT_BOLGE}}_MGMT
   preference 200 200 255
   import-route direct
   import-route static

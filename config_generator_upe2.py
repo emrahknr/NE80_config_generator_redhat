@@ -11,15 +11,15 @@ def config_generator_from_excel_upe2(excel_filename):
         for line in excel_csv:
             upe2_list.append(line.strip().split(';'))
 
-        for element in upe2_list[28:]:
-            key = element[0].strip()
-            value = element[1].strip()
+    for element in upe2_list[30:]:
+	key = element[0].strip()
+        value = element[1].strip()
 
             #X2_vrf icin tek haneli plaka kodlarina "0" eklemek icin ..
-            if key == "PLAKA_KOD" and len(value) < 2:
-                value = "0" + value
+        if key == "PLAKA_KOD" and len(value) < 2:
+	    value = "0" + value
                 
-            variables[key] = value
+        variables[key] = value
 
     with open(upe2_yaml_filename, "w+") as yf :
         yf.write("-")
