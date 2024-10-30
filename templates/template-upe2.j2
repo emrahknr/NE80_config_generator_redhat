@@ -2770,8 +2770,6 @@ ssh server-source -i LoopBack7
 header login file cfcard:/loginbanner.txt
 header shell file cfcard:/execbanner.txt
 #
-telnet client-source -i LoopBack 0
-#
 lldp enable
 #
 lldp management-address {{LOOPBACK0_IP_ADDRESS}}
@@ -2800,7 +2798,7 @@ user-interface vty 0 14
  user privilege level 15
  history-command max-size 256
  idle-timeout 5 0
- protocol inbound all
+ protocol inbound ssh
 #
 user-interface vty 16 20
  acl 3001 inbound
@@ -2808,7 +2806,7 @@ user-interface vty 16 20
  user privilege level 15
  history-command max-size 256
  idle-timeout 5 0
- protocol inbound all
+ protocol inbound ssh
 #
 local-aaa-server
 #
