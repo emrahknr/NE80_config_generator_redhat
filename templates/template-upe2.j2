@@ -207,10 +207,9 @@ acl name ipoe-control-in advance
  rule 120 permit ip source 100.64.0.0 0.63.255.255 destination 10.34.83.0 0.0.0.255
  rule 130 permit ip source 100.64.0.0 0.63.255.255 destination 172.31.173.128 0.0.0.127
  rule 140 permit ip source 100.64.0.0 0.63.255.255 destination 213.74.177.187 0
- rule 150 permit udp source 100.64.0.0 0.63.255.255 destination 100.64.0.0 0.63.255.255 destination-port eq 3784
- rule 160 permit ip source 100.64.0.0 0.63.255.255 destination 85.153.240.0 0.0.15.255
- rule 170 permit ip source 100.64.0.0 0.63.255.255 destination 10.63.0.0 0.0.15.255
- rule 180 permit ip source 100.64.0.0 0.63.255.255 destination 85.153.220.0 0.0.3.255
+ rule 150 permit ip source 100.64.0.0 0.63.255.255 destination 85.153.240.0 0.0.15.255
+ rule 160 permit ip source 100.64.0.0 0.63.255.255 destination 10.63.0.0 0.0.15.255
+ rule 170 permit ip source 100.64.0.0 0.63.255.255 destination 85.153.220.0 0.0.3.255
  rule 10000 deny ip
 #
 acl name ip advance
@@ -568,6 +567,7 @@ ip ip-prefix reject-all index 10 permit 0.0.0.0 0 less-equal 32
 ip ip-prefix management-and-voip index 1000 deny 127.0.0.1 32
 ip ip-prefix only-loopback index 10 permit 0.0.0.0 32
 ip ip-prefix only-host index 10 permit 0.0.0.0 32
+ip ip-prefix dont_advrt_conn_microbfd index 10 permit 10.40.155.240 28 greater-equal 28 less-equal 32
 ip ip-prefix management-888 index 10 permit 92.45.4.164 30
 ip ip-prefix management-888 index 20 permit 92.45.0.0 27
 ip ip-prefix management-888 index 30 permit 213.74.189.104 29
@@ -671,6 +671,9 @@ route-policy Core-to-Access permit node 10
  if-match ip-prefix loopback-from-core-to-access
  apply tag 100
 route-policy Core-to-Access deny node 1000
+#
+route-policy connected-into-bgp deny node 5
+ if-match ip-prefix dont_advrt_conn_microbfd
 #
 route-policy connected-into-bgp permit node 10
  if-match ip-prefix pref-13to24
@@ -2297,11 +2300,11 @@ nqa twamp
 #
 aaa
  user-password min-len 9
- local-user tellcom password irreversible-cipher $1c$j$"b*5o$sW$EQ,:G\B#s&]ge$YOQE:VDsBn4}&}jMJurGL'WDn'$
- local-user tellcom service-type terminal ftp ssh
- local-user tellcom level 15
- local-user tellcom state block fail-times 10 interval 1
- local-user tellcom ftp-directory cfcard:
+ local-user tclocal password irreversible-cipher $1c$j$"b*5o$sW$EQ,:G\B#s&]ge$YOQE:VDsBn4}&}jMJurGL'WDn'$
+ local-user tclocal service-type ftp terminal ssh
+ local-user tclocal level 15
+ local-user tclocal state block fail-times 10 interval 1
+ undo local-user tellcom
  undo local-user root
  undo local-user admin
  undo local-user huawei
