@@ -568,6 +568,11 @@ ip ip-prefix management-and-voip index 1000 deny 127.0.0.1 32
 ip ip-prefix only-loopback index 10 permit 0.0.0.0 32
 ip ip-prefix only-host index 10 permit 0.0.0.0 32
 ip ip-prefix dont_advrt_conn_microbfd index 10 permit 10.40.155.240 28 greater-equal 28 less-equal 32
+ip ip-prefix dont_advrt_conn_microbfd index 20 permit 10.40.155.224 28 greater-equal 28 less-equal 32
+ip ip-prefix dont_advrt_conn_microbfd index 30 permit 10.40.155.220 30 greater-equal 30 less-equal 32
+ip ip-prefix dont_advrt_conn_microbfd index 40 permit 10.40.168.106 31 greater-equal 31 less-equal 32
+ip ip-prefix dont_advrt_conn_microbfd index 50 permit 10.40.168.108 30 greater-equal 30 less-equal 32
+ip ip-prefix dont_advrt_conn_microbfd index 60 permit 10.40.170.224 27 greater-equal 27 less-equal 32
 ip ip-prefix management-888 index 10 permit 92.45.4.164 30
 ip ip-prefix management-888 index 20 permit 92.45.0.0 27
 ip ip-prefix management-888 index 30 permit 213.74.189.104 29
