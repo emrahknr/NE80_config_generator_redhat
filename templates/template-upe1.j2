@@ -117,6 +117,8 @@ acl number 2021
  rule 125 description BEHIND-MNGT-SYSTEM-FW
  rule 126 permit vpn-instance-any source 10.222.232.0 0.0.3.255
  rule 126 description BEHIND-MNGT-SYSTEM-FW
+ rule 220 permit  ip vpn-instance-any source 10.102.218.224 0.0.0.15
+ rule 220 description sechard
 #
 acl name iptv-channel-groups basic
  rule 10 permit source 233.88.168.0 0.0.0.255
@@ -187,6 +189,39 @@ acl number 3001
  rule 218 description BEHIND-MNGT-SYSTEM-FW
  rule 219 permit  ip vpn-instance-any source 10.222.232.0 0.0.3.255
  rule 219 description BEHIND-MNGT-SYSTEM-FW
+ rule 220 permit  ip vpn-instance-any source 10.102.218.224 0.0.0.15
+ rule 220 description sechard
+#
+acl 3111
+ rule 10 deny tcp destination-port eq 22
+ rule 20 deny tcp destination-port eq 23
+ rule 30 deny tcp destination-port eq 80
+ rule 40 deny tcp destination-port eq 443
+ rule 50 deny tcp destination-port eq 21
+ rule 60 deny udp destination-port eq 161
+ rule 65 deny tcp destination-port eq 161
+ rule 70 deny tcp destination-port eq 179
+ rule 80 deny udp destination-port eq 646
+ rule 85 deny tcp destination-port eq 646
+ rule 90 deny tcp destination-port eq 8080
+ rule 100 deny tcp destination-port eq 53
+ rule 110 deny udp destination-port eq 53
+ rule 120 deny tcp destination-port eq 8000
+ rule 130 deny tcp destination-port eq 8081
+ rule 140 deny tcp destination-port eq 8443
+ rule 150 deny tcp destination-port eq 9443
+ rule 160 deny tcp destination-port eq 862
+ rule 170 deny tcp destination-port eq 541
+ rule 180 deny tcp destination-port eq 1723
+ rule 190 deny tcp destination-port eq 2000
+ rule 200 deny tcp destination-port eq 5800
+ rule 210 deny tcp destination-port eq 5900
+ rule 220 deny tcp destination-port eq 3306
+ rule 230 deny tcp destination-port eq 25
+ rule 240 deny tcp destination-port eq 3389
+ rule 250 deny tcp destination-port eq 502
+ rule 260 deny tcp destination-port eq 8001
+ rule 500 permit ip
 #
 acl name match-icmp advance
  rule 10 permit icmp
@@ -207,6 +242,7 @@ acl name ipoe-control-in advance
  rule 120 permit ip source 100.64.0.0 0.63.255.255 destination 10.34.83.0 0.0.0.255
  rule 130 permit ip source 100.64.0.0 0.63.255.255 destination 172.31.173.128 0.0.0.127
  rule 140 permit ip source 100.64.0.0 0.63.255.255 destination 213.74.177.187 0
+ rule 150 permit udp source 100.64.0.0 0.63.255.255 destination 100.64.0.0 0.63.255.255 destination-port eq 3784
  rule 160 permit ip source 100.64.0.0 0.63.255.255 destination 85.153.240.0 0.0.15.255
  rule 170 permit ip source 100.64.0.0 0.63.255.255 destination 10.63.0.0 0.0.15.255
  rule 180 permit ip source 100.64.0.0 0.63.255.255 destination 85.153.220.0 0.0.3.255
@@ -390,6 +426,9 @@ if-match acl name int-cust-ipv4-drop
 traffic classifier int-cust-ipv6-drop operator or
 if-match ipv6 acl name int-cust-ipv6-drop
 #
+traffic classifier kurumsal-sw-mgmt-access-class operator and
+if-match acl 3111
+#
 traffic behavior af2-dscp-remark
  service-class af2 color green no-remark
  remark dscp af21
@@ -462,6 +501,9 @@ traffic behavior permit-all
  permit
 traffic behavior voice
  service-class ef color green no-remark
+#
+traffic behavior kurumsal-sw-mgmt-access-behavior
+permit
 #
 traffic policy qoe-probe
 share-mode
@@ -540,6 +582,11 @@ traffic policy voice-remark
 share-mode
 statistics enable
 classifier any behavior ef-dscp-remark precedence 1
+#
+traffic policy kurumsal-sw-mgmt-access-policy
+classifier kurumsal-sw-mgmt-access-class behavior kurumsal-sw-mgmt-access-behavior
+classifier any behavior business
+statistics enable
 #
 ip ip-prefix local-loopback permit {{LOOPBACK0_IP_ADDRESS}} 32
 ip ip-prefix Access-to-Core index 10 permit 0.0.0.0 32
@@ -2308,7 +2355,7 @@ nqa twamp
 aaa
  user-password min-len 9
  local-user tclocal password irreversible-cipher $1c$_.ZxX3J+AH$r^l_AOV0#JMBnC++1Y6:mu8#DA98XAyHxaMWT*#D$
- local-user tclocal service-type ftp terminal ssh
+ local-user tclocal service-type terminal ssh
  local-user tclocal level 15
  local-user tclocal state block fail-times 10 interval 1
  undo local-user tellcom
