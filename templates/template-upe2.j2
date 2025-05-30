@@ -2443,6 +2443,8 @@ ntp-service unicast-server 10.203.110.61  vpn-instance TAN-MGMT-ACCESS  source-i
 ipv6 extension-header routing routing-type 0 deny
 ipv6 extension-header routing routing-type 1 deny
 #
+route loop-detect isis enable
+#
 interface Virtual-Template0
  ppp authentication-mode auto
 #
