@@ -1302,6 +1302,16 @@ tunnel-policy lsp-lb
 tunnel-policy seamless
  tunnel select-seq cr-lsp lsp load-balance-number 32 unmix
 #
+ptp enable
+ptp profile g-8275-1 enable
+ptp device-type t-bc
+#
+clock ethernet-synchronization enable
+clock ssm-control on
+clock source ptp synchronization enable
+clock source ptp priority 100
+clock source ptp ssm prc
+#
 ip vpn-instance 2G3G-DATA-ACCESS
  ipv4-family
   route-distinguisher {{LOOPBACK0_IP_ADDRESS}}:3896
