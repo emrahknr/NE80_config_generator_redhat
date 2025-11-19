@@ -124,7 +124,6 @@ acl name iptv-channel-groups basic
  rule 10 permit source 233.88.168.0 0.0.0.255
  rule 20 permit source 233.26.166.0 0.0.0.255
  rule 30 permit source 233.21.46.0 0.0.0.255
- rule 40 permit source 232.0.255.0 0.0.0.255
 #
 acl number 3001
  rule 1 permit  ip vpn-instance-any source 10.35.175.1 0
@@ -2368,6 +2367,10 @@ aaa
  local-user tclocal service-type terminal ssh
  local-user tclocal level 15
  local-user tclocal state block fail-times 10 interval 1
+ local-user tclocal@solconsole password irreversible-cipher $1d$Q1w\Gy|mER4>|E<w$9rwlHC\z98ZBo&YXP/s"aAQ1~h~)wE_^Xn-`>v&:$
+ local-user tclocal@solconsole service-type terminal
+ local-user tclocal@solconsole level 15
+ local-user tclocal@solconsole state block fail-times 10 interval 1
  undo local-user tellcom
  undo local-user root
  undo local-user admin
