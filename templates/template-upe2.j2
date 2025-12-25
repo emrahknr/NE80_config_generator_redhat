@@ -1387,14 +1387,14 @@ ip vpn-instance LTE-SYNC-ACCESS
 #
 ip vpn-instance LTE-X2-{{SEHIR_ADI}}
  ipv4-family
-  route-distinguisher {{LOOPBACK0_IP_ADDRESS}}:18{{'%02d' % PLAKA_KOD }}
+  route-distinguisher {{LOOPBACK0_IP_ADDRESS}}:18{{PLAKA_KOD}}
   export route-policy deny-default-and-permit-all
   tnl-policy lsp-lb
   apply-label per-route
   transit-vpn
   prefix limit 10000 80
-  vpn-target 34984:18{{'%02d' % PLAKA_KOD }} export-extcommunity
-  vpn-target 34984:18{{'%02d' % PLAKA_KOD }} import-extcommunity
+  vpn-target 34984:18{{PLAKA_KOD}} export-extcommunity
+  vpn-target 34984:18{{PLAKA_KOD}} import-extcommunity
 #
 ip vpn-instance TAN-MGMT-ACCESS
  ipv4-family
