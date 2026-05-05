@@ -1390,14 +1390,14 @@ ip vpn-instance LTE-SYNC-ACCESS
 #
 ip vpn-instance LTE-X2-{{SEHIR_ADI}}
  ipv4-family
-  route-distinguisher {{LOOPBACK0_IP_ADDRESS}}:18{{PLAKA_KOD}}
+  route-distinguisher {{LOOPBACK0_IP_ADDRESS}}:18{{ "%02d" | format(PLAKA_KOD | int) }}
   export route-policy deny-default-and-permit-all
   tnl-policy lsp-lb
   apply-label per-route
   transit-vpn
   prefix limit 20000 80
-  vpn-target 34984:18{{PLAKA_KOD}} export-extcommunity
-  vpn-target 34984:18{{PLAKA_KOD}} import-extcommunity
+  vpn-target 34984:18{{ "%02d" | format(PLAKA_KOD | int) }} export-extcommunity
+  vpn-target 34984:18{{ "%02d" | format(PLAKA_KOD | int) }} import-extcommunity
 #
 ip vpn-instance TAN-MGMT-ACCESS
  ipv4-family
@@ -2358,7 +2358,7 @@ nqa twamp
   tcp port 862 vpn-instance fullmesh-monitoring
   control-session inactive 600
   client acl 2024
-  tcp listen-mode assign-ip
+  tcp listen-mode any-ip
   reflector
   test-session inactive 600
 #
