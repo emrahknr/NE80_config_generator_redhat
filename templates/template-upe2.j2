@@ -2513,14 +2513,14 @@ bgp 34984
   peer {{IPV4_UNICAST_RR_01_IP_ADDRESS}} next-hop-local
   peer {{IPV4_UNICAST_RR_01_IP_ADDRESS}} advertise-community
   peer {{IPV4_UNICAST_RR_01_IP_ADDRESS}} advertise best-external
-  peer {{IPV4_UNICAST_RR_01_IP_ADDRESS}} route-limit 1375000 85 alert-only
+  peer {{IPV4_UNICAST_RR_01_IP_ADDRESS}} route-limit 1500000 85 alert-only
   peer {{IPV4_UNICAST_RR_02_IP_ADDRESS}} enable
   peer {{IPV4_UNICAST_RR_02_IP_ADDRESS}} route-policy ibgp-import-from-rr import
   peer {{IPV4_UNICAST_RR_02_IP_ADDRESS}} route-policy ibgp-export-to-rr export
   peer {{IPV4_UNICAST_RR_02_IP_ADDRESS}} next-hop-local
   peer {{IPV4_UNICAST_RR_02_IP_ADDRESS}} advertise-community
   peer {{IPV4_UNICAST_RR_02_IP_ADDRESS}} advertise best-external
-  peer {{IPV4_UNICAST_RR_02_IP_ADDRESS}} route-limit 1375000 85 alert-only
+  peer {{IPV4_UNICAST_RR_02_IP_ADDRESS}} route-limit 1500000 85 alert-only
   peer POP-ring enable
   peer POP-ring advertise-community
   peer POP-ring reflect-client
@@ -2795,7 +2795,7 @@ snmp-agent sys-info location {{POP_NAME}}
 snmp-agent sys-info version all
 snmp-agent group v3 snmp-read privacy read-view include-all write-view exclude-all notify-view include-all
 snmp-agent group v3 snmp-write privacy read-view include-all write-view include-all notify-view include-all
-snmp-agent group v3 UPEgroup privacy read-view iso-view write-view iso-view notify-view iso-view
+snmp-agent group v3 UPEgroup privacy read-view include-all write-view exclude-all notify-view include-all
 snmp-agent usm-user v3 UPEv3user
 snmp-agent usm-user v3 UPEv3user group UPEgroup
 snmp-agent usm-user v3 UPEv3user authentication-mode md5 cipher %^%#GmZ[9OW@1"jRj8THnV[BhMrJ@:82R-u2g@-4i<SA%^%#
@@ -2815,7 +2815,6 @@ snmp-agent trap source LoopBack7
 snmp-agent protocol source-interface LoopBack7
 snmp-agent protocol vpn-instance TAN-MGMT-ACCESS
 #
-snmp-agent mib-view included iso-view iso
 snmp-agent mib-view excluded exclude-all iso
 snmp-agent mib-view included include-all iso
 snmp-agent usm-user v3 snmp-user-read
@@ -2823,11 +2822,6 @@ snmp-agent usm-user v3 snmp-user-read group snmp-read
 snmp-agent usm-user v3 snmp-user-read authentication-mode md5 cipher %^%#01,9:za;i'%K4\4KIL7V0;q]K:,}iIl(<K(FdZ:S%^%#
 snmp-agent usm-user v3 snmp-user-read privacy-mode des56 cipher %^%#@H1o"+_e;9&fCt<BsIhNe%nd4nk!"1u=(A06st!I%^%#
 snmp-agent usm-user v3 snmp-user-read acl 2021
-snmp-agent usm-user v3 snmp-user-write
-snmp-agent usm-user v3 snmp-user-write group snmp-write
-snmp-agent usm-user v3 snmp-user-write authentication-mode md5 cipher %^%#Sr5JEBkeGJlg5`%8O3I1)cp,L[NTw$|l[[,WoxSA%^%#
-snmp-agent usm-user v3 snmp-user-write privacy-mode des56 cipher %^%#}W(KP/{:78n(*C;GuY_/}6>W=I*NPY'9OJGq!*-H%^%#
-snmp-agent usm-user v3 snmp-user-write acl 2011
 snmp-agent trap enable
 #
 stelnet server enable
